@@ -1,0 +1,62 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 79f7a8cbff7c705db057f194432c4767ebecffbdd0bdccf66d59b14778e9713a
+
+name:           adventofcode2020
+version:        0.1.0.0
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    LICENSE
+
+library
+  exposed-modules:
+      Day1
+      Day2
+  other-modules:
+      Paths_adventofcode2020
+  hs-source-dirs:
+      src
+  build-depends:
+      HUnit
+    , base >=4.7 && <5
+    , containers
+    , split
+  default-language: Haskell2010
+
+executable adventofcode2020-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_adventofcode2020
+  hs-source-dirs:
+      app
+  build-depends:
+      HUnit
+    , adventofcode2020
+    , base >=4.7 && <5
+    , containers
+    , split
+  default-language: Haskell2010
+
+test-suite adventofcode2020-spec
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      TestDay1
+      TestDay2
+      Paths_adventofcode2020
+  hs-source-dirs:
+      test
+  build-depends:
+      HUnit
+    , adventofcode2020
+    , base >=4.7 && <5
+    , containers
+    , split
+  default-language: Haskell2010

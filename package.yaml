@@ -1,0 +1,30 @@
+name:                adventofcode2020
+version:             0.1.0.0
+license:             MIT
+
+extra-source-files:
+- README.md
+- LICENSE
+
+dependencies:
+- base >= 4.7 && < 5
+- containers
+- HUnit
+- split
+
+library:
+  source-dirs: src
+
+executables:
+  adventofcode2020-exe:
+    main:                Main.hs
+    source-dirs:         app
+    dependencies:
+    - adventofcode2020
+
+tests:
+  adventofcode2020-spec:
+    main:                Spec.hs
+    source-dirs:         test
+    dependencies:
+    - adventofcode2020
