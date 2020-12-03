@@ -2,6 +2,7 @@ module Day2 where
 
 import Data.List (elemIndices)
 import Data.List.Split
+import Lib (count)
 
 solvePart1 :: String -> Int
 solvePart1 input = length $ filter (== True) evaluatedPasswords
@@ -37,9 +38,6 @@ passwordsValidByRepetition atLeast atMost letter password =
 passwordsValidByPosition :: Int -> Int -> Char -> String -> Bool
 passwordsValidByPosition p1 p2 letter password =
   isAtPosition p1 letter password /= isAtPosition p2 letter password
-
-count :: Char -> String -> Int
-count x = length . filter (== x)
 
 isAtPosition :: Int -> Char -> String -> Bool
 isAtPosition p char string = any ((== p) . (+ 1)) (elemIndices char string)
