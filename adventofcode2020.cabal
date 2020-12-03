@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8c4927cfdf677f9c4b90bf6bec4f384aaaff9ba3da3a6c73d5bafd0032afa16c
+-- hash: e287fe49eb419d1eaf8baf98ce9baa13cf568b2c1f0c6731037d79f63dd46b73
 
 name:           adventofcode2020
 version:        0.1.0.0
@@ -26,9 +26,7 @@ library
   hs-source-dirs:
       src
   build-depends:
-      HUnit
-    , base >=4.7 && <5
-    , containers
+      base >=4.7 && <5
     , split
   default-language: Haskell2010
 
@@ -39,11 +37,8 @@ executable adventofcode2020-exe
   hs-source-dirs:
       app
   build-depends:
-      HUnit
-    , adventofcode2020
+      adventofcode2020
     , base >=4.7 && <5
-    , containers
-    , split
   default-language: Haskell2010
 
 test-suite adventofcode2020-spec
@@ -60,6 +55,4 @@ test-suite adventofcode2020-spec
       HUnit
     , adventofcode2020
     , base >=4.7 && <5
-    , containers
-    , split
   default-language: Haskell2010

@@ -8,12 +8,11 @@ extra-source-files:
 
 dependencies:
 - base >= 4.7 && < 5
-- containers
-- HUnit
-- split
 
 library:
   source-dirs: src
+  dependencies:
+  - split
 
 executables:
   adventofcode2020-exe:
@@ -28,3 +27,4 @@ tests:
     source-dirs:         test
     dependencies:
     - adventofcode2020
+    - HUnit
