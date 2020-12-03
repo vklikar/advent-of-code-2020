@@ -1,8 +1,8 @@
 module Main where
 
-import Day1
-import Day2
-import Day3
+import qualified Day1
+import qualified Day2
+import qualified Day3
 
 main :: IO ()
 main = do
