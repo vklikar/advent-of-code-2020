@@ -6,6 +6,7 @@ import qualified Day3
 import qualified Day4
 import qualified Day5
 import qualified Day5Amendment
+import qualified Day6
 
 main :: IO ()
 main = do
@@ -21,3 +22,5 @@ main = do
   readFile "app/day5.txt" >>= print . Day5.solvePart2
   readFile "app/day5.txt" >>= print . Day5Amendment.solvePart1
   readFile "app/day5.txt" >>= print . Day5Amendment.solvePart2
+  readFile "app/day6.txt" >>= print . Day6.solvePart1
+  readFile "app/day6.txt" >>= print . Day6.solvePart2
