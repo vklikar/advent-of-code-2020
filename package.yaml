@@ -1,31 +1,30 @@
-name:                adventofcode2020
+name:                aoc2020
 version:             0.1.0.0
 license:             MIT
 
 extra-source-files:
 - README.md
-- LICENSE
 
 dependencies:
 - base >= 4.7 && < 5
 
 library:
-  source-dirs: src
+  source-dirs: src/haskell
   dependencies:
   - split
   - containers
 
 executables:
-  adventofcode2020-exe:
+  aoc2020-exe:
     main:                Main.hs
-    source-dirs:         app
+    source-dirs:         src
     dependencies:
-    - adventofcode2020
+    - aoc2020
 
 tests:
-  adventofcode2020-spec:
+  aoc2020-test:
     main:                Spec.hs
-    source-dirs:         test
+    source-dirs:         tests/haskell
     dependencies:
-    - adventofcode2020
+    - aoc2020
     - HUnit
