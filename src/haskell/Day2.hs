@@ -1,15 +1,24 @@
 module Day2 where
 
+import Data.Attoparsec.Text
 import Data.List (elemIndices)
-import Data.List.Split
-import Lib (count)
+import qualified Data.Text as T
+import Lib
+
+data PasswordPolicy = PasswordPolicy
+  { _number1 :: Int,
+    _number2 :: Int,
+    _letter :: Char,
+    _password :: String
+  }
+  deriving (Show)
 
 solvePart1 :: String -> Int
 solvePart1 input = length $ filter (== True) evaluatedPasswords
   where
     evaluatedPasswords =
       [ passwordsValidByRepetition atLeast atMost letter password
-        | (atLeast, atMost, letter, password) <- parseInput input
+        | (PasswordPolicy atLeast atMost letter password) <- parseInput input
       ]
 
 solvePart2 :: String -> Int
@@ -17,23 +26,28 @@ solvePart2 input = length $ filter (== True) evaluatedPasswords
   where
     evaluatedPasswords =
       [ passwordsValidByPosition p1 p2 letter password
-        | (p1, p2, letter, password) <- parseInput input
+        | (PasswordPolicy p1 p2 letter password) <- parseInput input
       ]
 
-parseInput :: String -> [(Int, Int, Char, String)]
-parseInput = map (parseInputLine . words) . lines
+parseInput :: String -> [PasswordPolicy]
+parseInput = map (fromRight . parseOnly parsePasswordPolicy . T.pack) . lines
 
-parseInputLine :: [String] -> (Int, Int, Char, String)
-parseInputLine [w1, w2, password] = (number1, number2, letter, password)
-  where
-    letter = head w2
-    [number1, number2] = map read (splitOn "-" w1)
+parsePasswordPolicy :: Parser PasswordPolicy
+parsePasswordPolicy = do
+  n1 <- decimal
+  char '-'
+  n2 <- decimal
+  char ' '
+  l <- letter
+  string ": "
+  password <- many1 letter
+  return $ PasswordPolicy n1 n2 l password
 
 passwordsValidByRepetition :: Int -> Int -> Char -> String -> Bool
 passwordsValidByRepetition atLeast atMost letter password =
   atLeast <= numberOfOccurrences && numberOfOccurrences <= atMost
   where
-    numberOfOccurrences = count letter password
+    numberOfOccurrences = Lib.count letter password
 
 passwordsValidByPosition :: Int -> Int -> Char -> String -> Bool
 passwordsValidByPosition p1 p2 letter password =

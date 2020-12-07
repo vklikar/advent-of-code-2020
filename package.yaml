@@ -8,11 +8,17 @@ extra-source-files:
 dependencies:
 - base >= 4.7 && < 5
 
+ghc-options:
+- -XOverloadedStrings
+- -XExtendedDefaultRules
+
 library:
   source-dirs: src/haskell
   dependencies:
   - split
   - containers
+  - text
+  - attoparsec
 
 executables:
   aoc2020-exe:

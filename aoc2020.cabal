@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2aadbe65cbd5175c11921668a209b6177d7ca3491034b68c694815ad89e49ed2
+-- hash: 1b46907015b2529339ed7d0e1a3e48ab5af4aafe62ee8a7de4a092de6538707c
 
 name:           aoc2020
 version:        0.1.0.0
@@ -29,10 +29,13 @@ library
       Paths_aoc2020
   hs-source-dirs:
       src/haskell
+  ghc-options: -XOverloadedStrings -XExtendedDefaultRules
   build-depends:
-      base >=4.7 && <5
+      attoparsec
+    , base >=4.7 && <5
     , containers
     , split
+    , text
   default-language: Haskell2010
 
 executable aoc2020-exe
@@ -41,6 +44,7 @@ executable aoc2020-exe
       Paths_aoc2020
   hs-source-dirs:
       src
+  ghc-options: -XOverloadedStrings -XExtendedDefaultRules
   build-depends:
       aoc2020
     , base >=4.7 && <5
@@ -60,6 +64,7 @@ test-suite aoc2020-test
       Paths_aoc2020
   hs-source-dirs:
       tests/haskell
+  ghc-options: -XOverloadedStrings -XExtendedDefaultRules
   build-depends:
       HUnit
     , aoc2020
