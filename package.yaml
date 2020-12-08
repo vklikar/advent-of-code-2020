@@ -19,6 +19,7 @@ library:
   - containers
   - text
   - attoparsec
+  - regex-pcre-builtin
 
 executables:
   aoc2020-exe:

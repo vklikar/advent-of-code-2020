@@ -1,9 +1,11 @@
+{-# LANGUAGE FlexibleContexts #-}
+
 module Day7 where
 
-import Data.List.Split
 import qualified Data.Map as M
 import Data.Maybe
 import Lib
+import Text.Regex.PCRE
 
 solvePart1 :: String -> Int
 solvePart1 input =
@@ -20,21 +22,17 @@ parseInput :: String -> M.Map String (M.Map String Int)
 parseInput = M.fromList . map parseRule . lines
 
 parseRule :: String -> (String, M.Map String Int)
-parseRule rule = (color, content)
+parseRule x = (bag, content)
   where
-    (color, content') = listToPair $ splitOn " bags contain " rule
-    content'' = map words $ splitOn ", " (head $ splitOn "." content')
-    content = M.fromList [(parseColor (c1 ++ " " ++ c2), parseNumber n) | (n : c1 : c2 : _) <- content'']
+    bagRegex = "^\\w+ \\w+"
+    contentRegex = "\\d+ \\w+ \\w+"
+    bag = x =~ bagRegex :: String
+    content = M.fromList $ map (parseContent . words) (getAllTextMatches (x =~ contentRegex) :: [String])
 
-parseNumber :: String -> Int
-parseNumber "no" = 0
-parseNumber n = read n :: Int
+parseContent :: [String] -> (String, Int)
+parseContent ("no" : _) = ("", 0)
+parseContent (n : c1 : c2 : _) = (c1 ++ " " ++ c2, read n :: Int)
 
-parseColor :: String -> String
-parseColor "other bags" = ""
-parseColor color = color
-
--- could be improved so as not to look for the same bags repeatedly
 containsColor :: String -> String -> M.Map String (M.Map String a) -> Bool
 containsColor color containedColor rules
   | color == "" = False
@@ -43,7 +41,6 @@ containsColor color containedColor rules
   where
     content = fromJust $ M.lookup color rules
 
--- could be improved so as not to count the same bags repeatedly
 countBags :: String -> M.Map String (M.Map String Int) -> Int
 countBags "" _ = 0
 countBags color rules =

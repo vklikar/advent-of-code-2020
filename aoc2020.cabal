@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f31ea37f3e1c7fa330f4cb8ff397df504c4970f8fa83c10a5c2be0dbe36ab87f
+-- hash: f2dbec2025888ad76932722568dfd6ea767f15e03860bd9ab470e91c3722e151
 
 name:           aoc2020
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       attoparsec
     , base >=4.7 && <5
     , containers
+    , regex-pcre-builtin
     , split
     , text
   default-language: Haskell2010
