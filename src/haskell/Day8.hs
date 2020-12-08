@@ -1,14 +1,15 @@
 module Day8 where
 
 import Data.Bifunctor
+import Data.Either
 import Lib
 
 solvePart1 :: String -> Int
-solvePart1 = acc . executeProgram . parseInput
+solvePart1 = fromLeft 0 . executeProgram . parseInput
 
 solvePart2 :: String -> Int
 solvePart2 input =
-  acc $ head $ filter (all snd) [executeProgram x | x <- makeAllPossiblePrograms instructions]
+  (head . rights) [executeProgram x | x <- makeAllPossiblePrograms instructions]
   where
     instructions = parseInput input
 
@@ -17,9 +18,6 @@ parseInput = map (second readArgument . listToPair . words) . lines
 
 readArgument :: String -> Int
 readArgument x = (read . dropWhile (== '+')) x :: Int
-
-acc :: [(Int, Bool)] -> Int
-acc = sum . map fst
 
 makeAllPossiblePrograms :: [(String, Int)] -> [[(String, Int)]]
 makeAllPossiblePrograms input = makeAllPossiblePrograms' 0 input input
@@ -39,14 +37,14 @@ swapNopJmp :: String -> String
 swapNopJmp "nop" = "jmp"
 swapNopJmp "jmp" = "nop"
 
-executeProgram :: [(String, Int)] -> [(Int, Bool)]
-executeProgram input = executeProgram' 0 [] (length input) input
+executeProgram :: [(String, Int)] -> Either Int Int
+executeProgram input = executeProgram' 0 [] 0 (length input) input
 
-executeProgram' :: Int -> [Int] -> Int -> [(String, Int)] -> [(Int, Bool)]
-executeProgram' index visited lenXs xs
-  | index == lenXs = [] -- program terminated normally
-  | nextIndex `elem` visited = [(increment, False)] -- break before going into an infinite loop
-  | otherwise = (increment, True) : executeProgram' nextIndex newVisited lenXs xs
+executeProgram' :: Int -> [Int] -> Int -> Int -> [(String, Int)] -> Either Int Int
+executeProgram' index visited n lenXs xs
+  | index == lenXs = Right n -- program terminated normally
+  | nextIndex `elem` visited = Left n -- break before going into an infinite loop
+  | otherwise = executeProgram' nextIndex newVisited (n + increment) lenXs xs
   where
     (op, value) = xs !! index
     (increment, nextIndex) = executeInstruction op value index

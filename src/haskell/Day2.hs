@@ -2,6 +2,7 @@ module Day2 where
 
 import Data.Attoparsec.Text
 import Data.List (elemIndices)
+import Data.Either
 import qualified Data.Text as T
 import Lib
 
@@ -30,7 +31,7 @@ solvePart2 input = length $ filter (== True) evaluatedPasswords
       ]
 
 parseInput :: String -> [PasswordPolicy]
-parseInput = map (fromRight . parseOnly parsePasswordPolicy . T.pack) . lines
+parseInput = rights . map (parseOnly parsePasswordPolicy . T.pack) . lines
 
 parsePasswordPolicy :: Parser PasswordPolicy
 parsePasswordPolicy = do
