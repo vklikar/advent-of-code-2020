@@ -1,7 +1,5 @@
 module Day9 where
 
-import Lib
-
 solvePart1 :: String -> Int
 solvePart1 = findNumberWithoutSum 25 . parseInput
 
@@ -14,15 +12,19 @@ solvePart2 input = findWeakness invalidNumber numbers
 parseInput :: String -> [Int]
 parseInput = map read . words
 
--- this is fairly slow
 findNumberWithoutSum :: Int -> [Int] -> Int
 findNumberWithoutSum preambleSize xs = f (take preambleSize xs) (drop preambleSize xs)
   where
     f preamble (x : xs)
-      | x `elem` allSums = f (drop 1 preamble ++ [x]) xs
+      | isNumberValid x preamble preamble = f (drop 1 preamble ++ [x]) xs
       | otherwise = x
-      where
-        allSums = map sum $ combinations 2 preamble
+
+isNumberValid :: Int -> [Int] -> [Int] -> Bool
+isNumberValid _ [] _ = False
+isNumberValid n (_ : xs) [] = isNumberValid n xs (tail xs)
+isNumberValid n (x : xs) (y : ys)
+  | x + y == n = True
+  | otherwise = isNumberValid n (x : xs) ys
 
 findWeakness :: Int -> [Int] -> Int
 findWeakness invalidNumber xs = minimum contiguousNumbers + maximum contiguousNumbers
