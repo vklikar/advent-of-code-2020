@@ -8,6 +8,7 @@ import qualified Day5
 import qualified Day6
 import qualified Day7
 import qualified Day8
+import qualified Day9
 
 main :: IO ()
 main = do
@@ -27,3 +28,5 @@ main = do
   readFile "data/day7.txt" >>= print . Day7.solvePart2
   readFile "data/day8.txt" >>= print . Day8.solvePart1
   readFile "data/day8.txt" >>= print . Day8.solvePart2
+  readFile "data/day9.txt" >>= print . Day9.solvePart1
+  readFile "data/day9.txt" >>= print . Day9.solvePart2
