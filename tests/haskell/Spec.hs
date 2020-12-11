@@ -2,6 +2,8 @@ module Main (main) where
 
 import Test.HUnit
 import TestDay1
+import TestDay10
+import TestDay11
 import TestDay2
 import TestDay3
 import TestDay4
@@ -10,7 +12,6 @@ import TestDay6
 import TestDay7
 import TestDay8
 import TestDay9
-import TestDay10
 
 main :: IO Counts
 main = do
@@ -24,3 +25,4 @@ main = do
   TestDay8.runTests
   TestDay9.runTests
   TestDay10.runTests
+  TestDay11.runTests
