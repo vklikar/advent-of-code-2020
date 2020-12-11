@@ -1,6 +1,6 @@
-module TestDay5 where
+module TestDay05 where
 
-import Day5
+import Day05
 import Test.HUnit
 
 testParseInput :: Test

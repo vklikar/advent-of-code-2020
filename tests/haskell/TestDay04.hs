@@ -1,6 +1,6 @@
-module TestDay4 where
+module TestDay04 where
 
-import Day4
+import Day04
 import Test.HUnit
 
 examplePart1 =

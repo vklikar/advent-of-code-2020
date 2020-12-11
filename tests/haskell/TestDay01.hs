@@ -1,6 +1,6 @@
-module TestDay1 where
+module TestDay01 where
 
-import Day1
+import Day01
 import Test.HUnit
 
 testPart2 :: Test

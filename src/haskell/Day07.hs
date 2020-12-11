@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-module Day7 where
+module Day07 where
 
 import qualified Data.Map as M
 import Data.Maybe

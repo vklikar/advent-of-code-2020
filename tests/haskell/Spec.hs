@@ -1,28 +1,28 @@
 module Main (main) where
 
 import Test.HUnit
-import TestDay1
+import TestDay01
+import TestDay02
+import TestDay03
+import TestDay04
+import TestDay05
+import TestDay06
+import TestDay07
+import TestDay08
+import TestDay09
 import TestDay10
 import TestDay11
-import TestDay2
-import TestDay3
-import TestDay4
-import TestDay5
-import TestDay6
-import TestDay7
-import TestDay8
-import TestDay9
 
 main :: IO Counts
 main = do
-  TestDay1.runTests
-  TestDay2.runTests
-  TestDay3.runTests
-  TestDay4.runTests
-  TestDay5.runTests
-  TestDay6.runTests
-  TestDay7.runTests
-  TestDay8.runTests
-  TestDay9.runTests
+  TestDay01.runTests
+  TestDay02.runTests
+  TestDay03.runTests
+  TestDay04.runTests
+  TestDay05.runTests
+  TestDay06.runTests
+  TestDay07.runTests
+  TestDay08.runTests
+  TestDay09.runTests
   TestDay10.runTests
   TestDay11.runTests

@@ -1,4 +1,4 @@
-module Day9 where
+module Day09 where
 
 solvePart1 :: String -> Int
 solvePart1 = findNumberWithoutSum 25 . parseInput

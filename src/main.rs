@@ -1,12 +1,12 @@
 use std::fs;
 
 mod rust {
-    pub mod day6;
+    pub mod day06;
 }
 
 fn main() {
-    println!("{}", rust::day6::solve_part1(read_file("data/day6.txt")));
-    println!("{}", rust::day6::solve_part2(read_file("data/day6.txt")));
+    println!("{}", rust::day06::solve_part1(read_file("data/day06.txt")));
+    println!("{}", rust::day06::solve_part2(read_file("data/day06.txt")));
 }
 
 fn read_file(filename: &str) -> String {
