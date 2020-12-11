@@ -12,6 +12,9 @@ ghc-options:
 - -XOverloadedStrings
 - -XExtendedDefaultRules
 
+build-tools:
+ - implicit-hie
+
 library:
   source-dirs: src/haskell
   dependencies:

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7a782e95f8c414555cc6ee81b492d4fc8a29379dcad0fb1f0563abf7ebcd08ac
+-- hash: d91a2c1ec91a683950705a80d3a269d57015ee300b0b97efe5f4ed2a811e7513
 
 name:           aoc2020
 version:        0.1.0.0
@@ -33,6 +33,8 @@ library
   hs-source-dirs:
       src/haskell
   ghc-options: -XOverloadedStrings -XExtendedDefaultRules
+  build-tool-depends:
+      implicit-hie:implicit-hie
   build-depends:
       attoparsec
     , base >=4.7 && <5
@@ -49,6 +51,8 @@ executable aoc2020-exe
   hs-source-dirs:
       src
   ghc-options: -XOverloadedStrings -XExtendedDefaultRules
+  build-tool-depends:
+      implicit-hie:implicit-hie
   build-depends:
       aoc2020
     , base >=4.7 && <5
@@ -73,6 +77,8 @@ test-suite aoc2020-test
   hs-source-dirs:
       tests/haskell
   ghc-options: -XOverloadedStrings -XExtendedDefaultRules
+  build-tool-depends:
+      implicit-hie:implicit-hie
   build-depends:
       HUnit
     , aoc2020
