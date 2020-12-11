@@ -23,6 +23,7 @@ library:
   - text
   - attoparsec
   - regex-pcre-builtin
+  - matrix
 
 executables:
   aoc2020-exe:

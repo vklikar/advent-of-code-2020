@@ -1,5 +1,7 @@
 module Day11 where
 
+import qualified Data.Matrix as Matrix
+import Data.Maybe
 import Lib
 
 solvePart1 :: String -> Int
@@ -8,54 +10,52 @@ solvePart1 input = countOccupiedSeats 4 1 layout
     layout = parseInput input
 
 solvePart2 :: String -> Int
-solvePart2 input = countOccupiedSeats 5 (max (length layout) (length $ head layout) - 1) layout
+solvePart2 input = countOccupiedSeats 5 (max (Matrix.nrows layout) (Matrix.ncols layout) - 1) layout
   where
     layout = parseInput input
 
-parseInput :: String -> [String]
-parseInput = lines
+parseInput :: String -> Matrix.Matrix Char
+parseInput = Matrix.fromLists . lines
 
-countOccupiedSeats :: Int -> Int -> [String] -> Int
+countOccupiedSeats :: Int -> Int -> Matrix.Matrix Char -> Int
 countOccupiedSeats becomeEmptyMin lookDistance layout =
-  sum $ map (count '#') $ simulate [] becomeEmptyMin lookDistance layout
+  count '#' $ Matrix.toList $ simulate (Matrix.fromLists [""]) becomeEmptyMin lookDistance layout
 
-simulate :: [String] -> Int -> Int -> [String] -> [String]
+simulate :: Matrix.Matrix Char -> Int -> Int -> Matrix.Matrix Char -> Matrix.Matrix Char
 simulate prev becomeEmptyMin lookDistance layout
   | prev == layout = layout
   | otherwise = simulate layout becomeEmptyMin lookDistance layout'
   where
-    layout' = applyRules (0, 0) becomeEmptyMin lookDistance layout w h layout
-    w = length $ head layout
-    h = length layout
+    layout' = applyRules (1, 1) becomeEmptyMin lookDistance layout layout
 
-applyRules :: (Int, Int) -> Int -> Int -> [String] -> Int -> Int -> [String] -> [String]
-applyRules (i, j) becomeEmptyMin lookDistance newLayout w h layout
-  | i == h = newLayout
+applyRules :: (Int, Int) -> Int -> Int -> Matrix.Matrix Char -> Matrix.Matrix Char -> Matrix.Matrix Char
+applyRules (i, j) becomeEmptyMin lookDistance newLayout layout
+  | i > Matrix.nrows layout = newLayout
   | seat == 'L' && occupiedSeats == 0 = f (setSeat '#')
   | seat == '#' && occupiedSeats >= becomeEmptyMin = f (setSeat 'L')
   | otherwise = f newLayout
   where
-    seat = getSeat (i, j) w h layout
-    j' = if j < (w - 1) then j + 1 else 0
+    seat = getSeat (i, j) layout
+    j' = if j < Matrix.ncols layout then j + 1 else 0
     i' = if j' == 0 then i + 1 else i
     occupiedSeats =
       count
         '#'
-        [ firstSeatInDirection (i, j) (di, dj) lookDistance 0 w h layout
+        [ firstSeatInDirection (i, j) (di, dj) lookDistance 0 layout
           | di <- [-1 .. 1],
             dj <- [-1 .. 1],
             (di, dj) /= (0, 0)
         ]
-    setSeat x = setMatrixElem (i, j) x newLayout
-    f x = applyRules (i', j') becomeEmptyMin lookDistance x w h layout
+    setSeat x = Matrix.setElem x (i, j) newLayout
+    f x = applyRules (i', j') becomeEmptyMin lookDistance x layout
 
-firstSeatInDirection :: (Int, Int) -> (Int, Int) -> Int -> Int -> Int -> Int -> [String] -> Char
-firstSeatInDirection (i, j) (di, dj) lookDistance step w h layout
+firstSeatInDirection :: (Int, Int) -> (Int, Int) -> Int -> Int -> Matrix.Matrix Char -> Char
+firstSeatInDirection (i, j) (di, dj) lookDistance step layout
   | step == lookDistance = '.'
   | seat == '#' || seat == 'L' = seat
-  | otherwise = firstSeatInDirection (i + di, j + dj) (di, dj) lookDistance (step + 1) w h layout
+  | otherwise = firstSeatInDirection (i + di, j + dj) (di, dj) lookDistance (step + 1) layout
   where
-    seat = getSeat (i + di, j + dj) w h layout
+    seat = getSeat (i + di, j + dj) layout
 
-getSeat :: (Int, Int) -> Int -> Int -> [String] -> Char
-getSeat = getMatrixElem '.'
+getSeat :: (Int, Int) -> Matrix.Matrix Char -> Char
+getSeat (i, j) layout = fromMaybe '.' $ Matrix.safeGet i j layout
