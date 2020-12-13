@@ -11,6 +11,9 @@ dependencies:
 ghc-options:
 - -XOverloadedStrings
 - -XExtendedDefaultRules
+# - -threaded
+# - -rtsopts
+# - -with-rtsopts=-N
 
 build-tools:
  - implicit-hie

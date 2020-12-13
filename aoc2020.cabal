@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b40d2ca98198f3e7d440e3b009d89c4f7dfdce13a70e576d13d6c2c1fbb13eb2
+-- hash: b54950bbf0f0a80acb5e72eee60d317c171117efd4a809b050ded687b25d6166
 
 name:           aoc2020
 version:        0.1.0.0
@@ -28,6 +28,7 @@ library
       Day10
       Day11
       Day12
+      Day13
       Lib
   other-modules:
       Paths_aoc2020
@@ -76,6 +77,7 @@ test-suite aoc2020-test
       TestDay10
       TestDay11
       TestDay12
+      TestDay13
       Paths_aoc2020
   hs-source-dirs:
       tests/haskell
