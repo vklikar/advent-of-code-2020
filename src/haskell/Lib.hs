@@ -5,7 +5,7 @@ import Data.List
 count :: Eq a => a -> [a] -> Int
 count x = length . filter (== x)
 
-listToPair :: [a] -> (a,a)
+listToPair :: [a] -> (a, a)
 listToPair [x, y] = (x, y)
 
 combinations :: Int -> [a] -> [[a]]
@@ -21,3 +21,20 @@ setMatrixElem (i, j) x yys = setElem i (setElem j x (yys !! i)) yys
 
 setElem :: Int -> a -> [a] -> [a]
 setElem n x ys = take n ys ++ x : drop (n + 1) ys
+
+integerToDigits :: Integer -> String
+integerToDigits x = f 36 x
+  where
+    f n 0 = replicate n '0'
+    f n x = f (n -1) (x `div` 2) ++ [integerToDigit (x `mod` 2)]
+
+digitsToInteger :: String -> Integer
+digitsToInteger = foldl' (\x y -> 2 * x + y) 0 . map digitToInteger
+
+integerToDigit :: Integer -> Char
+integerToDigit 1 = '1'
+integerToDigit 0 = '0'
+
+digitToInteger :: Char -> Integer
+digitToInteger '1' = 1
+digitToInteger '0' = 0

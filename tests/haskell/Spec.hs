@@ -14,9 +14,12 @@ import TestDay10
 import TestDay11
 import TestDay12
 import TestDay13
+import TestDay14
+import TestLib
 
 main :: IO Counts
 main = do
+  TestLib.runTests
   TestDay01.runTests
   TestDay02.runTests
   TestDay03.runTests
@@ -30,3 +33,4 @@ main = do
   TestDay11.runTests
   TestDay12.runTests
   TestDay13.runTests
+  TestDay14.runTests
