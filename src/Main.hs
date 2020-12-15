@@ -14,6 +14,7 @@ import qualified Day11
 import qualified Day12
 import qualified Day13
 import qualified Day14
+import qualified Day15
 
 main :: IO ()
 main = do
@@ -45,3 +46,6 @@ main = do
   readFile "data/day13.txt" >>= print . Day13.solvePart2
   readFile "data/day14.txt" >>= print . Day14.solvePart1
   readFile "data/day14.txt" >>= print . Day14.solvePart2
+  readFile "data/day15.txt" >>= print . Day15.solvePart1
+
+-- readFile "data/day15.txt" >>= print . Day15.solvePart2
