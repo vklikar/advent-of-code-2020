@@ -1,6 +1,8 @@
 module Lib where
 
 import Data.List
+import qualified Data.Map as M
+import qualified Data.Set as S
 
 count :: Eq a => a -> [a] -> Int
 count x = length . filter (== x)
@@ -38,3 +40,8 @@ integerToDigit 0 = '0'
 digitToInteger :: Char -> Integer
 digitToInteger '1' = 1
 digitToInteger '0' = 0
+
+addToSetInMap k m v = M.alter (const $ Just s') k m
+  where
+    s = M.findWithDefault S.empty k m
+    s' = S.insert v s
