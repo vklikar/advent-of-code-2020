@@ -27,6 +27,7 @@ library:
   - attoparsec
   - regex-pcre-builtin
   - matrix
+  - vector
 
 executables:
   aoc2020-exe:
