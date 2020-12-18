@@ -28,6 +28,7 @@ library:
   - regex-pcre-builtin
   - matrix
   - vector
+  - hint
 
 executables:
   aoc2020-exe:

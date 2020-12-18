@@ -1,6 +1,7 @@
 module Lib where
 
 import Data.List
+import Data.List.Split
 import qualified Data.Map as M
 import qualified Data.Set as S
 
@@ -45,3 +46,5 @@ addToSetInMap k m v = M.alter (const $ Just s') k m
   where
     s = M.findWithDefault S.empty k m
     s' = S.insert v s
+
+replace old new = intercalate new . splitOn old
