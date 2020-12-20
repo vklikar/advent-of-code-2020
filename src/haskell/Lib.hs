@@ -3,7 +3,9 @@ module Lib where
 import Data.List
 import Data.List.Split
 import qualified Data.Map as M
+import qualified Data.Matrix as Matrix
 import qualified Data.Set as S
+import qualified Data.Vector as V
 
 count :: Eq a => a -> [a] -> Int
 count x = length . filter (== x)
@@ -48,3 +50,47 @@ addToSetInMap k m v = M.alter (const $ Just s') k m
     s' = S.insert v s
 
 replace old new = intercalate new . splitOn old
+
+rotateMatrixRight :: Matrix.Matrix a -> Matrix.Matrix a
+rotateMatrixRight = Matrix.transpose . flipMatrixRows
+
+rotateMatrixLeft :: Matrix.Matrix a -> Matrix.Matrix a
+rotateMatrixLeft = flipMatrixRows . Matrix.transpose
+
+rotateMatrix180 :: Matrix.Matrix a -> Matrix.Matrix a
+rotateMatrix180 = rotateMatrixRight . rotateMatrixRight
+
+flipMatrixRows :: Matrix.Matrix a -> Matrix.Matrix a
+flipMatrixRows m = flipMatrixRowsOrCols Matrix.switchRows 1 (Matrix.nrows m) m
+
+flipMatrixCols :: Matrix.Matrix a -> Matrix.Matrix a
+flipMatrixCols m = flipMatrixRowsOrCols Matrix.switchCols 1 (Matrix.ncols m) m
+
+flipMatrixRowsOrCols :: (Ord t1, Num t1) => (t1 -> t1 -> t2 -> t2) -> t1 -> t1 -> t2 -> t2
+flipMatrixRowsOrCols f a b m
+  | a >= b = m
+  | otherwise = flipMatrixRowsOrCols f (a + 1) (b - 1) (f a b m)
+
+headMatrixRow :: Matrix.Matrix a -> V.Vector a
+headMatrixRow = Matrix.getRow 1
+
+lastMatrixRow :: Matrix.Matrix a -> V.Vector a
+lastMatrixRow m = Matrix.getRow (Matrix.nrows m) m
+
+headMatrixCol :: Matrix.Matrix a -> V.Vector a
+headMatrixCol = Matrix.getCol 1
+
+lastMatrixCol :: Matrix.Matrix a -> V.Vector a
+lastMatrixCol m = Matrix.getCol (Matrix.ncols m) m
+
+setMatrixRow :: Int -> [a] -> Matrix.Matrix a -> Matrix.Matrix a
+setMatrixRow i = f (i, 1)
+  where
+    f _ [] m = m
+    f (i, j) (x : xs) m = f (i, j + 1) xs (Matrix.setElem x (i, j) m)
+
+setMatrixCol :: Int -> [a] -> Matrix.Matrix a -> Matrix.Matrix a
+setMatrixCol j = f (1, j)
+  where
+    f _ [] m = m
+    f (i, j) (x : xs) m = f (i + 1, j) xs (Matrix.setElem x (i, j) m)
