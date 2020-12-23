@@ -22,6 +22,7 @@ import qualified Day19
 import qualified Day20
 import qualified Day21
 import qualified Day22
+import qualified Day23
 
 main :: IO ()
 main = do
@@ -69,6 +70,8 @@ main = do
   readFile "data/day21.txt" >>= print' "21b" . Day21.solvePart2
   readFile "data/day22.txt" >>= print' "22a" . Day22.solvePart1
   readFile "data/day22.txt" >>= print' "22b" . Day22.solvePart2
+  print' "23a" . Day23.solvePart1 $ 158937462
+  -- print' "23b" . Day23.solvePart2 $ 158937462
 
 print' :: (Show a) => String -> a -> IO ()
 print' n result = do

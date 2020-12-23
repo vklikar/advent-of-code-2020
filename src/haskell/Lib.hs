@@ -94,3 +94,10 @@ setMatrixCol j = f (1, j)
   where
     f _ [] m = m
     f (i, j) (x : xs) m = f (i + 1, j) xs (Matrix.setElem x (i, j) m)
+
+intToList :: Int -> [Int]
+intToList 0 = []
+intToList x = intToList (x `div` 10) ++ [x `mod` 10]
+
+listToInt :: [Int] -> Int
+listToInt = foldl' (\x y -> 10 * x + y) 0
